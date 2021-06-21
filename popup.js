@@ -1,7 +1,6 @@
 function toggleSetting(name, value) {
     let payload = {};
     payload[name] = value;
-    c
 }
 
 document.addEventListener('DOMContentLoaded', () => {
