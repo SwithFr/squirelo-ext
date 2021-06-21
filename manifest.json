@@ -22,7 +22,7 @@
         "*://*.geoguessr.com/*"
     ],
     "web_accessible_resources": [{
-        "resources": ["/assets/icons/*.svg", "/styles/*.css"],
+        "resources": ["/assets/icons/*.svg", "/styles/*.css", "test.txt"],
         "matches": ["*://*.geoguessr.com/*"]
     }]
 }

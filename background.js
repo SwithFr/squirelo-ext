@@ -2,7 +2,7 @@ const settings = [
     'see-movement-settings',
     'track-advanced-round',
     'delete-all-ongoing',
-    'show-streak-flags'
+    'show-streak-flags',
 ];
 
 function setSetting(name, value) {
@@ -18,6 +18,12 @@ chrome.runtime.onInstalled.addListener(() => {
                 setSetting(setting, true);
             }
         });
+    });
+
+    chrome.storage.sync.get('score-value', data => {
+        if (Object.keys(data).length === 0) {
+            setSetting('score-value', 0);
+        }
     });
 });
 

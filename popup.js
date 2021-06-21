@@ -1,7 +1,7 @@
 function toggleSetting(name, value) {
     let payload = {};
     payload[name] = value;
-    chrome.storage.sync.set(payload);
+    c
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,6 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    const input = document.getElementById('score-value');
+    chrome.storage.sync.get('score-value', res => {
+        input.value = res['score-value'];
+    });
 });
 
 for (let elem of document.getElementsByClassName('setting-toggle')) {
@@ -22,3 +27,7 @@ for (let elem of document.getElementsByClassName('setting-toggle')) {
         toggleSetting(elem.id, evt.target.checked);
     });
 }
+const input = document.getElementById('score-value');
+input.addEventListener('blur', (e) => {
+    chrome.storage.sync.set({'score-value': e.target.value});
+});

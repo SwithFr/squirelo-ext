@@ -46,12 +46,38 @@
         status.style = `flex: 1;`;
     });
 
+    const get_score = function () {
+        const label = document.querySelector('.score-bar__label');
+
+        if (label) {
+            const regex = /([\d,]+)/gm;
+            const str = label.textContent;
+            const matches = regex.exec(str);
+            if (matches) {
+                const points = matches[0].replace(',', '');
+                chrome.storage.sync.get('score-value', res => {
+                    const scoreLimite = parseInt(res['score-value'], 10);
+                    console.log(scoreLimite, points, points < scoreLimite);
+                });
+                /*const url = chrome.runtime.getURL('test.txt');
+                fetch(url)
+                    .then((response) => response.text()) //assuming file contains json
+                    .then((text) => {
+                        console.log(text, points, points < text);
+                    });*/
+            }
+        }
+    };
+
     /**
      * Listen for game score change and request the game state.
      */
     let observer = new MutationObserver(async _mutations => {
         const response = await fetch(`${URL_BASE}/games/${game_id}`);
         const game_info = await response.json();
+        
+        console.log('infos', game_info);
+        get_score();
 
         const guess = parse_round_info(game_info.player.guesses[game_info.round - 2]);
         const round_elem = document.querySelector(`div#round${game_info.round - 1}-details`);
