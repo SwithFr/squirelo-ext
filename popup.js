@@ -1,6 +1,7 @@
 function toggleSetting(name, value) {
     let payload = {};
     payload[name] = value;
+    chrome.storage.sync.set(payload);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
